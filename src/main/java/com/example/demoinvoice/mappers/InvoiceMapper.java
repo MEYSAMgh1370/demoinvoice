@@ -1,14 +1,16 @@
-package com.example.demo.mapper;
+package com.example.demoinvoice.mappers;
 
-import com.example.demo.dto.PersonnelDTO;
-import com.example.demo.model.amoozesh.Personnel;
+
+import com.example.demoinvoice.dto.InvoiceDTO;
+import com.example.demoinvoice.models.Invoice;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 
 
-@Mapper(componentModel="spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PersonnelMapper  {
 
-    PersonnelDTO personnelToPersonnelDTO(Personnel personnel);
-    Personnel personnelDTOToPersonnel(PersonnelDTO personnelDTO);
+@Mapper(componentModel="spring")
+public interface InvoiceMapper {
+
+    //@Mapping(target ="invoiceDTO.itemTitle" , source = "invoice.item.title")
+    InvoiceDTO invoiceToInvoiceDTO(Invoice invoice);
+    Invoice invoiceDTOToInvoice(InvoiceDTO invoiceDTO);
 }
