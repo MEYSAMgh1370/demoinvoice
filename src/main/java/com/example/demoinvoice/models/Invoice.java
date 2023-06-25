@@ -1,10 +1,9 @@
 package com.example.demoinvoice.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,20 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-public class Invoice {
+public class Invoice extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "invoice_number", nullable = false)
+    @NotNull
     private Long invoiceNumber;
+    @NotNull
     @OneToMany
-    private List<Item> item;
-/*    @OneToOne(cascade = CascadeType.)
+    private List<Item> items;
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id", referencedColumnName = "id")
-    private Buyer buyer;*/
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_id", referencedColumnName = "id")
-    private Seller seller;
-    private Date date;
+    private Costumer costumer;
+
+    private LocalDate date;
 
 }

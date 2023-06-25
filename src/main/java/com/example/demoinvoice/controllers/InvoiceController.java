@@ -1,26 +1,39 @@
 package com.example.demoinvoice.controllers;
 
+import com.example.demoinvoice.dto.InvoiceDTO;
+import com.example.demoinvoice.mappers.InvoiceMapper;
 import com.example.demoinvoice.models.Invoice;
 import com.example.demoinvoice.services.InvoiceService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/Invoices")
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
+    private final InvoiceMapper invoiceMapper;
 
-    //@GetMapping("/{invoicenumber}")
-   // public Invoice getInvoiceByInvoiceNumber(@PathVariable("invoicenumber") Long invoiceNumber) {
-        //return invoiceService.find
-    //}
 
-    //public
+    @GetMapping("/{invoiceNumber}")
+    public InvoiceDTO getInvoiceByInvoiceNumber(@PathVariable("invoiceNumber") Long invoiceNumber) {
+
+        return invoiceService.findInvoiceByInvoiceNumber(invoiceNumber);
+    }
+
+    @PostMapping
+    public ResponseEntity handlePost(@Validated @RequestBody InvoiceDTO invoiceDTO) {
+
+        Invoice savedInvoice = invoiceService.saveInvoice(invoiceDTO);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "api/Invoice" + "/" + savedInvoice.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
 }

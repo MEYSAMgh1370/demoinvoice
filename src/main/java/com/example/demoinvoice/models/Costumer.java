@@ -2,11 +2,13 @@ package com.example.demoinvoice.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -14,15 +16,15 @@ import lombok.*;
 @Setter
 @Getter
 @Builder
-public class Item extends BaseEntity {
+public class Costumer extends BaseEntity {
+    @NotNull
+    @OneToMany
+    private List<Invoice> invoices;
     @NotEmpty
     @Size(max = 50)
     @Column(length = 50)
-    private String title;
-    @Size(max = 255)
-    private String description;
+    private String name;
     @NotEmpty
-    private int price;
-    @ManyToOne
-    private Invoice invoice;
+    @Size(max = 255)
+    private String address;
 }
