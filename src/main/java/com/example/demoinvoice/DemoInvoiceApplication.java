@@ -2,12 +2,14 @@ package com.example.demoinvoice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-public class DemoinvoiceApplication {
+@PropertySource("classpath:vendor.properties")
+public class DemoInvoiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoinvoiceApplication.class, args);
+        SpringApplication.run(DemoInvoiceApplication.class, args);
     }
 
 }

@@ -9,6 +9,7 @@ import com.example.demoinvoice.repositories.InvoiceRepository;
 import com.example.demoinvoice.services.InvoiceService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,14 @@ import java.util.stream.Collectors;
 public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceMapper invoiceMapper;
+    @Value("${vendor.company.name")
+    private String vendorCompanyName;
+    @Value("${vendor.unit")
+    private String vendorUnit;
+    @Value("${vendor.address")
+    private String vendorAddress;
+    @Value("${vendor.phoneNumber")
+    private String vendorPhoneNumber;
 
     @Override
     public Invoice saveInvoice(InvoiceDTO invoiceDTO) {
@@ -33,6 +42,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoiceDTO.setSum(
                 invoice.getItems().stream().mapToInt(Item::getPrice).reduce(0, Integer::sum)
         );
+        invoiceDTO.setVendorCompanyName(vendorCompanyName);
+        invoiceDTO.setVendorUnit(vendorUnit);
+        invoiceDTO.setVendorAddress(vendorAddress);
+        invoiceDTO.setVendorPhoneNumber(vendorPhoneNumber);
         return invoiceDTO;
     }
 
