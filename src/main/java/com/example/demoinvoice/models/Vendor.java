@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.util.List;
 
 @Entity
@@ -15,15 +16,19 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-public class Costumer extends BaseEntity {
+public class Vendor extends BaseEntity {
     @NotNull
     @OneToMany
     private List<Invoice> invoices;
     @NotEmpty
     @Size(max = 50)
     @Column(length = 50)
-    private String name;
+    private String companyName;
     @NotEmpty
     @Size(max = 255)
     private String address;
+    @NotEmpty
+    @Size(max = 50)
+    @Column(length = 50)
+    private String salesUnit;
 }

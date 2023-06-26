@@ -23,7 +23,10 @@ public class Invoice extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id", referencedColumnName = "id")
     private Costumer costumer;
-
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
+    private Vendor vendor;
     private LocalDate date;
 
 }

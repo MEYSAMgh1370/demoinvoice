@@ -12,7 +12,11 @@ import java.util.List;
 @Data
 public class InvoiceDTO {
     private int sum;
+    @NotEmpty
     private List<ItemDTO> items;
+    @NotEmpty
+    private VendorDTO vendorDTO;
+    @NotEmpty
     private CostumerDTO costumerDTO;
     @NotEmpty(message = "date can not be null.")
     private Date date;
